@@ -46,3 +46,4 @@ tumpa         ftdi    1500000 0x0403:0x8a98:TIAO USB Multi-Protocol Adapter:1
 sysfsgpio     sysfsgpio 0     NULL
 matrix_creator matrix_creator 0     NULL
 matrix_voice  matrix_voice 0  NULL
+usb3380xtrx   usb3380xtrx 0   NULL

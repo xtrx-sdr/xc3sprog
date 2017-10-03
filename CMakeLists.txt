@@ -128,15 +128,24 @@ ADD_CUSTOM_COMMAND(OUTPUT cables.h
     DEPENDS cablelist.txt
 )
 
+find_package(libusb3380)
+if(LIBUSB3380_FOUND)
+  include_directories(${LIBUSB3380_INCLUDE_DIR})
+  add_definitions( -DUSE_LIBUSB3380 )
+else(LIBUSB3380_FOUND)
+  set(LIBUSB3380_LIBRARIES "")
+endif(LIBUSB3380_FOUND)
+
 INCLUDE_DIRECTORIES(BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
 add_library(xc3sproglib  STATIC sysfs.cpp ioftdi.cpp iofx2.cpp 
                         devicedb.cpp jtag.cpp jedecfile.cpp bitfile.cpp 
                         iomatrixcreator.cpp iomatrixvoice.cpp iowiringpi.cpp
-			iobase.cpp  progalgxc95x.cpp utilities.cpp
-			progalgxcf.cpp progalgxcfp.cpp progalgxc3s.cpp
-			progalgavr.cpp progalgxc2c.cpp  mapfile_xc2c.cpp
-			ioxpc.cpp progalgspiflash.cpp bitrev.cpp
+                        iousb3380xtrx.cpp
+                        iobase.cpp  progalgxc95x.cpp utilities.cpp
+                        progalgxcf.cpp progalgxcfp.cpp progalgxc3s.cpp
+                        progalgavr.cpp progalgxc2c.cpp  mapfile_xc2c.cpp
+                        ioxpc.cpp progalgspiflash.cpp bitrev.cpp
                         cabledb.cpp pdioverjtag.cpp xmega_pdi_nvm.cpp
                         ${CONDITIONAL_FILES} devices.h cables.h)
 
@@ -146,14 +155,14 @@ add_executable(xc2c_warp xc2c_warp.cpp)
 target_link_libraries(xc2c_warp xc3sproglib ${CONDITIONAL_LIBS})
 
 add_executable(detectchain detectchain.cpp cables.h devices.h)
-target_link_libraries(detectchain xc3sproglib ${LIBFTDI_LIBRARIES} ${LIBFTD2XX_LIBRARIES} ${CONDITIONAL_LIBS} ${LIBS} )
+target_link_libraries(detectchain xc3sproglib ${LIBFTDI_LIBRARIES} ${LIBFTD2XX_LIBRARIES} ${LIBUSB3380_LIBRARIES} ${CONDITIONAL_LIBS} ${LIBS} )
 
 add_executable(xc3sprog xc3sprog.cpp javr.cpp srecfile.cpp progalgavr.cpp 
 			devices.h)
-target_link_libraries(xc3sprog xc3sproglib ${LIBFTDI_LIBRARIES}  ${LIBFTD2XX_LIBRARIES} ${CONDITIONAL_LIBS}  ${LIBS} )
+target_link_libraries(xc3sprog xc3sproglib ${LIBFTDI_LIBRARIES}  ${LIBFTD2XX_LIBRARIES} ${LIBUSB3380_LIBRARIES} ${CONDITIONAL_LIBS}  ${LIBS} )
 
 add_executable(readdna readdna.cpp devices.h)
-target_link_libraries(readdna xc3sproglib ${LIBFTDI_LIBRARIES}  ${LIBFTD2XX_LIBRARIES} ${CONDITIONAL_LIBS}  ${LIBS} )
+target_link_libraries(readdna xc3sproglib ${LIBFTDI_LIBRARIES}  ${LIBFTD2XX_LIBRARIES} ${LIBUSB3380_LIBRARIES} ${CONDITIONAL_LIBS}  ${LIBS} )
 
 
 

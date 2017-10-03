@@ -161,6 +161,8 @@ CABLES_TYPES CableDB::getCableType(const char *given_name)
     return CABLE_MATRIX_CREATOR;
   if (strcasecmp(given_name, "matrix_voice") == 0)
     return CABLE_MATRIX_VOICE;
+  if (strcasecmp(given_name, "usb3380xtrx") == 0)
+	return CABLE_USB3380XTRX;
 
   return CABLE_UNKNOWN;
 }
@@ -177,6 +179,7 @@ const char *CableDB::getCableName(const CABLES_TYPES type )
     case CABLE_MATRIX_VOICE: return "matrix_voice";
     case CABLE_SYSFS_GPIO: return "sysfsgpio";
     case CABLE_NONE: return "none";
+    case CABLE_USB3380XTRX: return "usb3380xtrx";
     case CABLE_UNKNOWN: return "unknown";
     }
     return "UNKNOWN";

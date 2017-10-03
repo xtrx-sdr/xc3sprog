@@ -11,6 +11,7 @@
 #include "iofx2.h"
 #include "ioftdi.h"
 #include "ioxpc.h"
+#include "iousb3380xtrx.h"
 #include "sysfs.h"
 #include "iomatrixcreator.h"
 #include "iomatrixvoice.h"
@@ -93,6 +94,7 @@ int  getIO( std::auto_ptr<IOBase> *io, struct cable_t * cable, char const *dev,
       io->get()->setVerbose(verbose);
       res = io->get()->Init(cable, serial, use_freq);
   }
+#if 0
   else if(cable->cabletype == CABLE_MATRIX_CREATOR)
   {
       io->reset(new IOMatrixCreator());
@@ -105,6 +107,15 @@ int  getIO( std::auto_ptr<IOBase> *io, struct cable_t * cable, char const *dev,
       io->get()->setVerbose(verbose);
       res = io->get()->Init(cable, serial, use_freq);
   }
+#endif
+#ifdef USE_LIBUSB3380
+  else if(cable->cabletype == CABLE_USB3380XTRX)
+  {
+      io->reset(new IOUSB3380XTRX());
+      io->get()->setVerbose(verbose);
+     res = io->get()->Init(cable, serial, use_freq);
+  }
+#endif
   else
   {
       fprintf(stderr, "Unknown Cable \"%s\" \n", getCableName(cable->cabletype));
@@ -122,6 +133,9 @@ const char *getCableName(int type)
     case CABLE_XPC: return "xpc"; break;
     case CABLE_SYSFS_GPIO: return "sysfsgpio"; break;
     case CABLE_UNKNOWN: return "unknown"; break;
+#ifdef USE_LIBUSB3380
+    case CABLE_USB3380XTRX: return "usb3380xtrx"; break;
+#endif
     default:
         return "Unknown";
     }
