@@ -3,10 +3,7 @@
 
 #ifdef USE_LIBUSB3380
 #include "iobase.h"
-
-extern "C" {
 #include <libusb3380.h>
-}
 
 class IOUSB3380XTRX : public IOBase
 {
