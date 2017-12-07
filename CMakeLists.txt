@@ -3,7 +3,7 @@ project(xc3sprog)
 set(xc3sprog_VERSION_MAJOR 0)
 set(xc3sprog_VERSION_MINOR 0)
 
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 set(CMAKE_CXX_FLAGS "-g -Wall")
 cmake_minimum_required(VERSION 2.6)
 
@@ -78,7 +78,7 @@ if(${WIN32})
   set(CPACK_NSIS_MODIFY_PATH             "ON")
 endif(${WIN32})
 
-set(CPACK_RESOURCE_FILE_LICENSE        ${CMAKE_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_LICENSE        ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
 
 set(CPACK_SOURCE_GENERATOR             TGZ)
 set(CPACK_SOURCE_IGNORE_FILES          "\\\\.svn" "build*")
@@ -109,7 +109,7 @@ set (LIBUSRP_INCLUDE_DIR "fallback/")
 include_directories(${LIBUSRP_INCLUDE_DIR})
 
 
-include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 #add_executable(debug debug.cpp iobase.cpp ioparport.cpp iodebug.cpp)
 
@@ -119,12 +119,12 @@ add_executable(srecparse  srecparse.cpp srecfile.cpp)
 add_executable(avrfuseparse  avrfuseparse.cpp avrfusefile.cpp)
 
 ADD_CUSTOM_COMMAND(OUTPUT devices.h
-    COMMAND ${CMAKE_COMMAND} -DDEVLIST_DIR=${CMAKE_SOURCE_DIR} -P ${CMAKE_SOURCE_DIR}/devlist.cmk
+    COMMAND ${CMAKE_COMMAND} -DDEVLIST_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_CURRENT_SOURCE_DIR}/devlist.cmk
     DEPENDS devlist.txt
 )
 
 ADD_CUSTOM_COMMAND(OUTPUT cables.h
-    COMMAND ${CMAKE_COMMAND} -DCABLELIST_DIR=${CMAKE_SOURCE_DIR} -P ${CMAKE_SOURCE_DIR}/cablelist.cmk
+    COMMAND ${CMAKE_COMMAND} -DCABLELIST_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_CURRENT_SOURCE_DIR}/cablelist.cmk
     DEPENDS cablelist.txt
 )
 
