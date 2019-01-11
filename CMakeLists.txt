@@ -65,6 +65,9 @@ if(${UNIX})
   set(CPACK_CMAKE_GENERATOR              "Unix Makefiles")
   set(CPACK_PACKAGE_NAME                 ${PROJECT_NAME})
   set(CPACK_PACKAGE_FILE_NAME            ${PROJECT_NAME}-${VERSION_STRING}${PACK_ARCH})
+  set(CPACK_DEBIAN_PACKAGE_DEPENDS       "libc6 (>= 2.17), libftdi1, libusb3380 (>= 0.0.1)")
+  set(CPACK_SET_DESTDIR                  "")
+  set(CPACK_PACKAGING_INSTALL_PREFIX     "/usr")
 endif(${UNIX})
 
 if(${WIN32})
@@ -86,7 +89,7 @@ set(CPACK_SOURCE_PACKAGE_FILE_NAME     ${CPACK_PACKAGE_FILE_NAME})
 
 # Subdirectories
 if(${UNIX})
-  set(CPACK_SET_DESTDIR "ON")
+#  set(CPACK_SET_DESTDIR "ON")
 endif(${UNIX})
 
 #link libusb dynamic at runtime on windows at at compile time else
