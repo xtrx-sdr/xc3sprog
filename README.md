@@ -39,9 +39,9 @@ $ cmake -DCMAKE_TOOLCHAIN_FILE=../Toolchain-mingw32.cmake ..
 ```
 
 ## XTRX reflashing
-You should use usb3380xtrx cable for USB3 to miniPCIe converter board
+Use `usb3380xtrx` cable setting to flash XTRX with the Fairwaves USB3 to miniPCIe converter board
 ```
-$ ./xc3sprog -c usb3380xtrx ./xtrxr3_top.bit:w:0:BIT
+$ ./xc3sprog -c usb3380xtrx ./xtrxr3_top.bin:w:0:BIT
 ```
 
 ## Options
